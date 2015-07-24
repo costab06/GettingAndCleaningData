@@ -29,10 +29,6 @@ activityLabels<-read.table("./data/UCI HAR Dataset/activity_labels.txt")
 featureLabels<-read.table("./data/UCI HAR Dataset/features.txt")
 
 
-
-        
-
-
 ## add the column Names
 colnames(testFeatureSet)<-featureLabels[,2]
 colnames(trainFeatureSet)<-featureLabels[,2]
@@ -44,31 +40,42 @@ colnames(testActivitySet)<-"activity"
 colnames(trainActivitySet)<-"activity"
 
 
+## reduce feature dataframes to columns that have "mean" or "std" in them
+cols <- grep("mean|std",names(testFeatureSet))
+testFeatureSet<-testFeatureSet[,cols]
+
+cols <- grep("mean|std",names(trainFeatureSet))
+trainFeatureSet<-trainFeatureSet[,cols]
+
+
+
 ## change the activity numbers into levels
 testActivitySet$activity<-as.factor(testActivitySet$activity)
 levels(testActivitySet$activity) <- activityLabels[,2]
+
 trainActivitySet$activity<-as.factor(trainActivitySet$activity)
 levels(trainActivitySet$activity) <- activityLabels[,2]
 
 
 ## add the subject and the activity to the datasets
-TESTDF<-cbind(testSubjectSet,testActivitySet,testFeatureSet)
-TRAINDF<-cbind(trainSubjectSet,trainActivitySet,trainFeatureSet)
+testSet<-cbind(testSubjectSet,testActivitySet,testFeatureSet)
+trainSet<-cbind(trainSubjectSet,trainActivitySet,trainFeatureSet)
 
 
-##put the test and training sets together for features and activities
-#totalFeatureSet<-rbind(testFeatureSet,trainFeatureSet)
-#totalActivitySet<-rbind(testActivitySet,trainActivitySet)
-
-
+##put the test and training sets together
+totalSet<-rbind(testSet,trainSet)
 
 
 
-## reduce feature dataframe to columns that have "mean" or "std" in them
-#cols <- grep("mean|std",names(totalFeatureSet))
-#reducedFeatureSet<-totalFeatureSet[,cols]
+## create the tidyDataSet
+tidyDataSet<-totalSet
 
 
+
+
+
+## write the tidy data set
+write.table(tidyDataSet, file = "tidyDataSet.df", row.name=FALSE)
 
 
 
