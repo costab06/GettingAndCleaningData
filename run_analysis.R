@@ -13,7 +13,7 @@ downloadPackage<-function() {
 
 
 
-##downloadPackage()
+downloadPackage()
 
 ## read in the test, train, activity, feature, and subject data
 testFeatureSet<-read.table("./data/UCI HAR Dataset/test/X_test.txt")
@@ -66,13 +66,23 @@ trainSet<-cbind(trainSubjectSet,trainActivitySet,trainFeatureSet)
 totalSet<-rbind(testSet,trainSet)
 
 
+## now, in order to summarize the data I seem to need to combine the
+## subjectID and the activity into a single column, and can drop the
+## individual columns
 
-## create the tidyDataSet
-tidyDataSet<-totalSet
+totalSet$subjectID_activity<-paste(as.character(totalSet$subjectID),
+                                   as.character(totalSet$activity),sep="_")
+## reorder the columns
+totalSet<-totalSet[,c(1,2,82,3:81)]
 
+## drop the first two
+totalSet<-totalSet[,-c(1,2)]
 
+## create the tidyDataMelt
+tidyDataMelt <- melt(totalSet,id="subjectID_activity",measure.vars=c(2:80))
 
-
+## dcast the dataframe to take the mean of all the variables by subjectID_activity
+tidyDataSet<-dcast(tidyDataMelt, subjectID_activity ~ variable, mean)
 
 ## write the tidy data set
 write.table(tidyDataSet, file = "tidyDataSet.df", row.name=FALSE)
