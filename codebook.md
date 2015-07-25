@@ -67,15 +67,15 @@ Device Measurement
  * "Gyro" is the gyroscope
 
 What the units / domain the measurement is represented in
- * "t" is measured in the time domain - how long it took
- * "f" is in the frequency domain - the time measurement transformed via fast furiour transform into its corrosponding frequency
+ * "t" is measured in the time domain
+ * "f" is in the frequency domain - the time measurement transformed via fast furiour transform into its corresponding frequency
 
 The overall movement is decomposed into the body movement component and the gravity component by assuming anything under a certain frequency must be the force of gravity
  * "body" is body movement
  * "gravity" is gravity
 
 
-Taken together they indicate a "jerk" of some "mag" (Magnitude) along some axis since the accellorometer is measuring along 3 axis simultaneously
+Taken together they indicate a "jerk" of some "mag" (Magnitude) along some axis since the accelerometer is measuring along 3 axis simultaneously
 
  * X
  * Y 
@@ -113,13 +113,13 @@ And a second independent dataset with the averages of each variable for each sub
 Description of the run_analysis.R program and how it operates
 --------------------------------------------------------------
 
-run_analysis.R does the following steps, each is described:
+run_analysis.R does the following steps:
 
 1. create a "data" dir if it does not exist: This is the standard pattern shown in the videos of testing whether the "./data" dir exists and creating if not.
 
 2. download the zip to the "data" dir: Uses download.file() to retrieve the zip into the "data" dir.  The download for this submission was taken on 7/24/2015 at 8:30pm EST
 
-3. unzip the zip file: Uses unzip() to unzip the file into it's directory structure.
+3. unzip the zip file: Uses unzip() to unzip the file into its directory structure.
 
 4. unlink the zip file: Uses unlink() to remove the zip file once unzipped since it isn't needed anymore.
 
