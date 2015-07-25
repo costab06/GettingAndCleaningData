@@ -101,47 +101,7 @@ write.table(tidyDataSet, file = "tidyDataSet.df", row.name=FALSE)
 
 
 
-## Makes the names meaningful
-## Replace the sections with more meaningful strings
-## 
-## The device it came from
-##Acc is the accelerometer
-##Gyro is the gyroscope
 
-## What the measurement is
-## t is time
-## f is frequency
-
-## The overall movement is divided into the body movement component and the gravity component
-## body is body movement
-## gravity is gravity
-
-##tBody
-##tGravity
-
-## These signals that are measured in the time domain can be
-## also represented in the frequency domain by taking the time
-## measurement and putting it through a fast fourier transform.
-## This is just another way of representing the same quantified measurement
-
-##fBody
-##fGravity
-
-
-## taken together they indicate a "Jerk" of some "Magnitude"
-
-
-## Jerk
-## Mag
-
-## In some direction (tri axial means it measures in 3 axis - x, y, z)
-##X, Y, Z
-
-
-## Summary statistics of the information of interest
-##mean or Mean
-##meanFreq
-##std
 
 
 
