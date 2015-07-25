@@ -54,6 +54,39 @@ This dataset is distributed AS-IS and no responsibility implied or explicit can 
 Jorge L. Reyes-Ortiz, Alessandro Ghio, Luca Oneto, Davide Anguita. November 2012.
 
 
+The content of the tidyDataSet
+------------------------------
+
+The tidyDataSet contains the mean aggregated (by subjectID_activity combination) values for all the variables pulled 
+from the large data set that contained either "mean" or "std" in the column name.  This data, as outlined above is motion and position data
+from two devices worn by a subject during an activity.  All data is normalized and scaled into the range [-1,1].  The raw measurements
+are available in the download as well.
+
+Device Measurement
+ * "Acc" is the accelerometer
+ * "Gyro" is the gyroscope
+
+What the units / domain the measurement is represented in
+ * "t" is measured in the time domain - how long it took
+ * "f" is in the frequency domain - the time measurement transformed via fast furiour transform into its corrosponding frequency
+
+The overall movement is decomposed into the body movement component and the gravity component by assuming anything under a certain frequency must be the force of gravity
+ * "body" is body movement
+ * "gravity" is gravity
+
+
+Taken together they indicate a "jerk" of some "mag" (Magnitude) along some axis since the accellorometer is measuring along 3 axis simultaneously
+
+ * X
+ * Y 
+ * Z
+
+
+
+
+
+
+
 
 Requirements for the project
 ----------------------------
@@ -71,8 +104,9 @@ From the coursera web site:
 Good luck!
 
 
-So two datasets must be created.  One that is the "raw data" containing columns with "mean" and "std" measurements, having descriptive variable names and the activity levels set appropriately.  And a second independent dataset witht he avarages of each variable for each subject and activity.
-
+So two datasets must be created.  One that is the "raw data" containing columns with "mean" and "std" measurements, 
+having descriptive variable names and the activity levels set appropriately.  
+And a second independent dataset with the averages of each variable for each subject and activity.
 
 
 
@@ -81,7 +115,7 @@ Description of the run_analysis.R program and how it operates
 
 run_analysis.R does the following steps, each is described:
 
-1. create a "data" dir if it does not exist: This is the standard pattern shown in the videos of testing whenther the "./data" dir exists and creating if not.
+1. create a "data" dir if it does not exist: This is the standard pattern shown in the videos of testing whether the "./data" dir exists and creating if not.
 
 2. download the zip to the "data" dir: Uses download.file() to retrieve the zip into the "data" dir.  The download for this submission was taken on 7/24/2015 at 8:30pm EST
 
@@ -104,9 +138,10 @@ run_analysis.R does the following steps, each is described:
 10. creates a melt of that large data set for the purposes of casting it into a summary: Combines the subjectID and the activity into a single column so that the summary tidyDataSet can be created using dcast.
 
 11. casts the melt into a tidyDataSet: Uses dcast() to recast the tall skinny dataset into a summary table using "mean" as the aggregation function for the cast.  This takes the mean of
-	all occurances of each variable in the dataset having the same value in the "subjectID_activity" column
+	all occurrences of each variable in the dataset having the same value in the "subjectID_activity" column
 
 12. writes this second tidyDataSet into a file
+
 
 
 
