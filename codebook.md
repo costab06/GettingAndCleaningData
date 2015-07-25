@@ -55,6 +55,23 @@ Jorge L. Reyes-Ortiz, Alessandro Ghio, Luca Oneto, Davide Anguita. November 2012
 
 
 
+Requirements for the project
+----------------------------
+
+From the coursera web site:
+
+ You should create one R script called run_analysis.R that does the following. 
+
+    1. Merges the training and the test sets to create one data set.
+    2. Extracts only the measurements on the mean and standard deviation for each measurement. 
+    3. Uses descriptive activity names to name the activities in the data set
+    4. Appropriately labels the data set with descriptive variable names. 
+    5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+
+Good luck!
+
+
+So two datasets must be created.  One that is the "raw data" containing columns with "mean" and "std" measurements, having descriptive variable names and the activity levels set appropriately.  And a second independent dataset witht he avarages of each variable for each subject and activity.
 
 
 
@@ -70,7 +87,7 @@ run_analysis.R does the following steps, each is described:
 
 3. unzip the zip file: Uses unzip() to unzip the file into it's directory structure.
 
-4. unlink the zip file: Uses unlink() to remove the zip file once unzipped.
+4. unlink the zip file: Uses unlink() to remove the zip file once unzipped since it isn't needed anymore.
 
 5. reads the test and train features, subjects, and activities: Uses read.table() to read the raw test and train features, activities, and subject data into dataframes for manipulation.
 
@@ -78,18 +95,18 @@ run_analysis.R does the following steps, each is described:
 
 7. reduce the columns to only those with "mean" or "std" in the column names: Uses grep() to identify the columns with the strings "mean" and "std" in them and reduces the test and train feature data sets to those columns
 
-8. set the activity levels instead of the numbers: Uses as.factor() to create levels from the activity names and apply them.
+8. set the activity levels instead of the numbers: Uses as.factor() to create levels from the activity names and applies them.
 
-9. creates a totalSet dataframe with all the test and train rows with the features names properly and the activity levels set: Uses cbind() and rbind() to put the subjectID, activity, and features together for the test and train data sets, then row bind 
+9. merges the test and train data sets into one total set: Uses cbind() and rbind() to put the subjectID, activity, and features together for the test and train data sets, then row bind 
 	them into one data set.  At this point we have a large and tidy data set.  All the columns are named properly, the rows contain 
 	a single observation each, and the data in the table is all related.
 
-10. creates a melt of that for the purposes of casting it into a summary: Combines the subjectID and the activity into a single column so that the summary tidyDataSet can be created using dcast.
+10. creates a melt of that large data set for the purposes of casting it into a summary: Combines the subjectID and the activity into a single column so that the summary tidyDataSet can be created using dcast.
 
 11. casts the melt into a tidyDataSet: Uses dcast() to recast the tall skinny dataset into a summary table using "mean" as the aggregation function for the cast.  This takes the mean of
 	all occurances of each variable in the dataset having the same value in the "subjectID_activity" column
 
-12. writes the tidyDataSet into a file
+12. writes this second tidyDataSet into a file
 
 
 
