@@ -62,22 +62,33 @@ Jorge L. Reyes-Ortiz, Alessandro Ghio, Luca Oneto, Davide Anguita. November 2012
 Description of the run_analysis.R program and how it operates
 --------------------------------------------------------------
 
-run_analysis.R does the following, each is described:
+run_analysis.R does the following steps, each is described:
 
 1. create a "data" dir if it does not exist: This is the standard pattern shown in the videos of testing whenther the "./data" dir exists and creating if not.
+
 2. download the zip to the "data" dir: Uses download.file() to retrieve the zip into the "data" dir.  The download for this submission was taken on 7/24/2015 at 8:30pm EST
+
 3. unzip the zip file: Uses unzip() to unzip the file into it's directory structure.
+
 4. unlink the zip file: Uses unlink() to remove the zip file once unzipped.
+
 5. reads the test and train features, subjects, and activities: Uses read.table() to read the raw test and train features, activities, and subject data into dataframes for manipulation.
+
 6. add the feature names to the test and train data: Adds the feature or column names to the test and train features, activities, and subject data to make it easier to fiddle with.
+
 7. reduce the columns to only those with "mean" or "std" in the column names: Uses grep() to identify the columns with the strings "mean" and "std" in them and reduces the test and train feature data sets to those columns
+
 8. set the activity levels instead of the numbers: Uses as.factor() to create levels from the activity names and apply them.
+
 9. creates a totalSet dataframe with all the test and train rows with the features names properly and the activity levels set: Uses cbind() and rbind() to put the subjectID, activity, and features together for the test and train data sets, then row bind 
 	them into one data set.  At this point we have a large and tidy data set.  All the columns are named properly, the rows contain 
 	a single observation each, and the data in the table is all related.
+
 10. creates a melt of that for the purposes of casting it into a summary: Combines the subjectID and the activity into a single column so that the summary tidyDataSet can be created using dcast.
+
 11. casts the melt into a tidyDataSet: Uses dcast() to recast the tall skinny dataset into a summary table using "mean" as the aggregation function for the cast.  This takes the mean of
 	all occurances of each variable in the dataset having the same value in the "subjectID_activity" column
+
 12. writes the tidyDataSet into a file
 
 
